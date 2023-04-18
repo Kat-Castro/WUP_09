@@ -95,9 +95,19 @@ subsets(regsubsets.out,statistic="adjr2",legend="topleft",main="Adjusted R^2")
 
 ### Best Two regressor model
 ```{r}
+Pike_best.model <- lm(Weight~.,data=Pike)
+summary(Pike_best.model)
 Pike_best_2_R_Model <- lm(Weight~Length1+Length3,data=Pike)
-summary(best.model)
 ```
+
+```{r}
+Pike_best.model <- lm(Weight~.,data=Pike)
+Pike_best_2_R_Model <- lm(Weight~Length1+Length3,data=Pike)
+anova(Pike_best.model, Pike_best_2_R_Model)
+```
+  
+
+
 ## Roach
 ```{r}
 Roach <- filter(Fish, Species== "Roach")
@@ -108,3 +118,5 @@ Roach <- select(Roach, -(Species))
 ### Best Two regressor model
 
 ## Final Summary Statements
+
+Pike model showed the best P-value compared to the others (THIS IS A NOTE)

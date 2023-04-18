@@ -63,20 +63,46 @@ Both the best model and best two regressor model give a similar data outcome set
 ```{r}
 best.Perch_Model <- lm(Weight~Height+Width,data=Perch)
 five_element_perch_model <- lm(Weight~.,data=Perch)
-one_perch_model <- lm(Weight~Height,data=Perch)
-anova(best.Perch_Model, one_perch_model, five_element_perch_model)
+anova(best.Perch_Model, five_element_perch_model)
 ```
-
-
+  
+The data provided by the five element model give a similar data set found by the two regressor model, so it would be pointless to use the Five Element Perch Model again. The P value provided reaches closest to 1. 
 
 ## Pike
 
+```{r}
+Pike <- filter(Fish, Species== "Pike")
+Pike <- select(Pike, -(Species))
+```
+
 ### Best Models
 
+```{r}
+library(leaps)
+regsubsets.out <-
+    regsubsets(Weight ~ .,
+               data = Pike,
+               nbest = 1,       # 1 best model for each number of predictors
+               nvmax = NULL,    # NULL for no limit on number of variables
+               force.in = NULL, force.out = NULL,
+               method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+library(car)
+subsets(regsubsets.out,statistic="adjr2",legend="topleft",main="Adjusted R^2")
+```
+
 ### Best Two regressor model
-
+```{r}
+Pike_best_2_R_Model <- lm(Weight~Length1+Length3,data=Pike)
+summary(best.model)
+```
 ## Roach
-
+```{r}
+Roach <- filter(Fish, Species== "Roach")
+Roach <- select(Roach, -(Species))
+```
 ### Best Models
 
 ### Best Two regressor model

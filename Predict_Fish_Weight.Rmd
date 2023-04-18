@@ -59,6 +59,16 @@ summary(best.model)
   
 Both the best model and best two regressor model give a similar data outcome set.
 
+###Five Element Perch Model
+```{r}
+best.Perch_Model <- lm(Weight~Height+Width,data=Perch)
+five_element_perch_model <- lm(Weight~.,data=Perch)
+one_perch_model <- lm(Weight~Height,data=Perch)
+anova(best.Perch_Model, one_perch_model, five_element_perch_model)
+```
+
+
+
 ## Pike
 
 ### Best Models

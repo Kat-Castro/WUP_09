@@ -105,8 +105,8 @@ Pike_best.model <- lm(Weight~.,data=Pike)
 Pike_best_2_R_Model <- lm(Weight~Length1+Length3,data=Pike)
 anova(Pike_best.model, Pike_best_2_R_Model)
 ```
-  
-
+    
+We were able to use several models to analysis pike. The P value collected ranged near 0 being at 8.67e-10. 
 
 ## Roach
 ```{r}

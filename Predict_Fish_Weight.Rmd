@@ -115,8 +115,41 @@ Roach <- select(Roach, -(Species))
 ```
 ### Best Models
 
+```{r}
+library(leaps)
+regsubsets.out <-
+    regsubsets(Weight ~ .,
+               data = Roach,
+               nbest = 1,       # 1 best model for each number of predictors
+               nvmax = NULL,    # NULL for no limit on number of variables
+               force.in = NULL, force.out = NULL,
+               method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+library(car)
+subsets(regsubsets.out,statistic="adjr2",legend="bottomleft",main="Adjusted R^2")
+```
+  
+Looking at the data analysed above, we can decrepit that the 2 element model will be the best model.
+
+
 ### Best Two regressor model
+
+```{r}
+Roach_best_model <- lm(Weight~Length3,data=Roach)
+summary(Roach_best_model)
+```
+
+
+```{r}
+Roach_best_model <- lm(Weight~Height+Width,data=Roach)
+five_element_Roach_model <- lm(Weight~.,data=Roach)
+anova(Roach_best_model, five_element_Roach_model)
+```
+
+The comparison with the best Roach Model and the five element model shows a similarity of p-value where there isn't a large difference between the two. Anova states that using these two models show no use since both result with a similar answer and give no statistical difference.
 
 ## Final Summary Statements
 
-Pike model showed the best P-value compared to the others (THIS IS A NOTE)
+Pike model showed the best P-value compared to the others
